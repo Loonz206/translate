@@ -1,16 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import LangaugeContext from "../contexts/LanguageContext";
+import ColorContext from "../contexts/ColorContext";
 
-class Button extends Component {
-  //this is how to wire Contexts via classBased Components
-  static contextType = LangaugeContext;
-  render() {
-    // good way of checking the wiring if its working correctly
-    const text = this.context === 'english' ? 'Submit' : 'Voorleggen'
-    return (
-        <button className="ui button primary">{text}</button>
-    );
-  }
-}
+const Button = () => {
+  // this is how to wire Contexts via classBased Components
+  // Similar to the Field component vs the context type approach.. is like the many method
+  // All of the Consumers need a {()=>} or a helper method for clarity
+  return (
+    <ColorContext.Consumer>
+      {(color) => (
+        <button type="button" className={`ui button ${color}`}>
+          <LangaugeContext.Consumer>
+            {(value) => (value === "english" ? "Submit" : "Voorleggen")}
+          </LangaugeContext.Consumer>
+        </button>
+      )}
+    </ColorContext.Consumer>
+  );
+};
 
 export default Button;

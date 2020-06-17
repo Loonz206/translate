@@ -7,6 +7,7 @@ class Field extends Component {
 
   render() {
     const text = this.context === "english" ? "Name" : "Naam";
+    // this static bit checking context is like a single source of contextual data
     return (
       <div className="ui field">
         <label htmlFor="">{text}</label>
